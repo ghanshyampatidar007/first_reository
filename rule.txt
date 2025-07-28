@@ -1,0 +1,33 @@
+https://github.com/ghanshyampatidar007/ESP32_S3-UART0-UART1-Communication-using-Zephyr-RTOS
+powershell---
+
+1. cd C:\Users\Administrator\Desktop\introduction-to-zephyr
+2. docker build -t env-zephyr-espressif -f .\Dockerfile.espressif .  
+3. docker run --rm -it -p 2222:22 -p 8800:8800 -v "${PWD}\workspace:/workspace" -w /workspace env-zephyr-espressif 
+
+vscode---
+
+4. open remote window 
+    connect to host
+       localhost
+           password- zephyr
+
+5.file
+    open workspace from file
+	/zephyr.code_workspace
+              password- zephyr
+6. /workspace# cd apps/01_blink/
+7.  rm -rf build/
+8.  west build -p always -b esp32s3_devkitc/esp32s3/procpu -- -DDTC_OVERLAY_FILE=boards/esp32s3_devkitc.overlay
+
+powershell---
+
+9.  cd  C:\Users\Administrator\Desktop\introduction-to-zephyr
+10. Set-ExecutionPolicy -Scope Currentuser -ExecutionPolicy Unrestricted -Force 
+11. python --version  
+12. python -m venv venv
+13. .\venv\Scripts\activate 
+14. python -m pip install pyserial==3.5 esptool==4.8.1
+15. python -m esptool --port "COM4" --chip auto --baud 921600 --before default_reset --after hard_reset write_flash -u --flash_size detect 0x0 .\workspace\apps\01_blink\build\zephyr\zephyr.bin
+16. python -m serial.tools.miniterm "COM4" 115200 
+17.
